@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     # Apps
-    # "yourapp.apps.YourAppConfig",
+    "users.apps.UsersConfig",
+    "roles.apps.RolesConfig",
     # Plugins
     "rest_framework",
     "rest_framework_simplejwt",
@@ -165,3 +166,5 @@ ALLOWED_HOSTS = [
     "localhost",
     "0.0.0.0",
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
