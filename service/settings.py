@@ -12,6 +12,15 @@ SECRET_KEY: str = config(
 DEBUG: bool = config("DEBUG", default=False, cast=bool)
 
 INSTALLED_APPS = [
+    # Admin UI
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+    "unfold.contrib.inlines",
+    # "unfold.contrib.import_export", optional, if django-import-export package is used
+    # "unfold.contrib.guardian",  optional, if django-guardian package is used
+    # "unfold.contrib.simple_history",   optional, if django-simple-history package is used
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
