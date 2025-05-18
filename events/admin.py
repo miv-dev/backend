@@ -1,8 +1,9 @@
-from django.contrib import admin
 from django.utils.html import format_html
 from .models import Event, EventPhoto, Certificate
+from unfold.admin import ModelAdmin, TabularInline
+from django.contrib import admin
 
-class EventPhotoInline(admin.TabularInline):
+class EventPhotoInline(TabularInline):
     model = EventPhoto
     extra = 1
     readonly_fields = ['photo_preview']
@@ -13,12 +14,12 @@ class EventPhotoInline(admin.TabularInline):
         return "Нет изображения"
     photo_preview.short_description = "Предпросмотр"
 
-class CertificateInline(admin.TabularInline):
+class CertificateInline(TabularInline):
     model = Certificate
     extra = 1
 
 @admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
+class EventAdmin(ModelAdmin):
     list_display = ('title', 'date', 'location', 'status_display')
     list_filter = ('date',)
     search_fields = ('title', 'description', 'location')
@@ -30,30 +31,29 @@ class EventAdmin(admin.ModelAdmin):
         }),
         ('Регистрация', {
             'fields': ('registration_link',),
-            'classes': ('collapse',),
             'description': 'Ссылка на форму регистрации (например, Google Forms)'
         }),
         ('Результаты', {
             'fields': ('achieved_places', 'status_display'),
-            'classes': ('collapse',),
             'description': 'Заполняется после завершения мероприятия'
         }),
     )
     
     inlines = [EventPhotoInline, CertificateInline]
-    
+
+    # Добавляем иконки для статусов
     def status_display(self, obj):
         if obj.status == "upcoming":
             return format_html(
-                '<span style="color: green;">Предстоящее</span>'
+                '<span class="unfold-tag unfold-tag--success">Предстоящее</span>'
             )
         return format_html(
-            '<span style="color: blue;">Завершенное</span>'
+            '<span class="unfold-tag unfold-tag--info">Завершенное</span>'
         )
     status_display.short_description = "Статус"
 
 @admin.register(EventPhoto)
-class EventPhotoAdmin(admin.ModelAdmin):
+class EventPhotoAdmin(ModelAdmin):
     list_display = ('event', 'description', 'photo_preview', 'created_at')
     list_filter = ('event', 'created_at')
     search_fields = ('event__title', 'description')
@@ -65,7 +65,7 @@ class EventPhotoAdmin(admin.ModelAdmin):
     photo_preview.short_description = "Фото"
 
 @admin.register(Certificate)
-class CertificateAdmin(admin.ModelAdmin):
+class CertificateAdmin(ModelAdmin):
     list_display = ('event', 'title', 'created_at')
     list_filter = ('event', 'created_at')
     search_fields = ('event__title', 'title')
