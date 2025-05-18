@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.utils import timezone
 from .models import Event, EventPhoto, Certificate
 from .serializers import EventSerializer, EventPhotoSerializer, CertificateSerializer
@@ -11,6 +12,18 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     parser_classes = (MultiPartParser, FormParser)
+
+    def get_permissions(self):
+        """
+        Переопределяем permissions в зависимости от действия:
+        - GET запросы доступны всем
+        - POST, PUT, DELETE только для админов
+        """
+        if self.action in ['create', 'update', 'partial_update', 'destroy', 'upload_photos', 'upload_certificate']:
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = []
+        return [permission() for permission in permission_classes]
 
     def get_queryset(self):
         queryset = Event.objects.all()
