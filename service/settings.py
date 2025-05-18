@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # Apps
     "users.apps.UsersConfig",
     "roles.apps.RolesConfig",
+    'events.apps.EventsConfig',
     # Plugins
     "rest_framework",
     "rest_framework_simplejwt",
@@ -181,3 +182,6 @@ ALLOWED_HOSTS = [
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
