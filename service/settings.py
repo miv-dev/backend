@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "roles.apps.RolesConfig",
     'events.apps.EventsConfig',
+    'news.apps.NewsConfig',
     # Plugins
     "rest_framework",
     "rest_framework_simplejwt",
