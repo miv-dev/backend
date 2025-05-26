@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 
 from users.models import CustomUser
 
@@ -9,8 +10,14 @@ from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationFo
 from unfold.admin import ModelAdmin
 
 
-# admin.site.unregister(User)
-# admin.site.unregister(Group)
+
+admin.site.unregister(Group)
+
+
+@admin.register(Group)
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
+
 
 class CustomUserAdmin(UserAdmin, ModelAdmin):
     list_display = (
@@ -18,13 +25,12 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         "first_name",
         "city",
         "age",
-        "role",
     )
     
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Персональная информация', {'fields': ('first_name', 'city', 'age')}),
-        ('Права', {'fields': ('is_active', 'is_staff', 'is_superuser', 'role')}),
+        ('Права', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     
     add_fieldsets = (

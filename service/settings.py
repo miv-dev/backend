@@ -11,6 +11,9 @@ SECRET_KEY: str = config(
 
 DEBUG: bool = config("DEBUG", default=False, cast=bool)
 
+LANGUAGE_CODE = 'ru-ru'
+
+
 INSTALLED_APPS = [
     # Admin UI
     "unfold",
@@ -30,14 +33,15 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     # Apps
     "users.apps.UsersConfig",
-    "roles.apps.RolesConfig",
     'events.apps.EventsConfig',
     'news.apps.NewsConfig',
+    'courses.apps.CoursesConfig',
     # Plugins
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -165,6 +169,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0:3000",
     "http://localhost:5173",
+    "http://fish-mp.miv-dev.ru:8000"
+
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -174,12 +180,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0:3000",
     "http://localhost:5173",
+    "http://fish-mp.miv-dev.ru:8000"
 ]
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "0.0.0.0",
+    "fish-mp.miv-dev.ru"
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
