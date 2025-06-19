@@ -57,7 +57,6 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
@@ -169,7 +168,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0:3000",
     "http://localhost:5173",
-    "http://fish-mp.miv-dev.ru:8000"
+    "http://fish-mp.miv-dev.ru:8000",
+    "https://fish-mp.miv-dev.ru",
+    "https://fish-mp.netlify.app"
 
 ]
 
@@ -180,17 +181,24 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://0.0.0.0:3000",
     "http://localhost:5173",
-    "http://fish-mp.miv-dev.ru:8000"
+    "http://fish-mp.miv-dev.ru:8000",
+    "https://fish-mp.miv-dev.ru",
+    "https://fish-mp.netlify.app"
 ]
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "0.0.0.0",
-    "fish-mp.miv-dev.ru"
+    "fish-mp.miv-dev.ru",
+    "fish-mp.netlify.app"
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'users.CustomUser'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -27,11 +27,26 @@ services:
     image: nginx:stable-alpine3.17-slim
     depends_on:
       - backend
+    restart: always
     volumes:
       - ./nginx:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/www/certbot
     ports:
-      - "8000:80"
+      - "80:80"
+      - "443:443"
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/www/certbot
+
+
 
 volumes:
+  certbot-etc:
+  certbot-var:
   fishdb:
     driver: local

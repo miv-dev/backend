@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 schema_view = get_schema_view(
+
    openapi.Info(
       title="Snippets API",
       default_version='v1',
@@ -32,6 +33,7 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
+    url="https://fish-mp.miv-dev.ru/",
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
