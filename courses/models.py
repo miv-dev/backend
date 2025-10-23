@@ -7,6 +7,7 @@ from users.models import CustomUser
 
 class Files(models.Model):
     file = models.FileField(upload_to='files/')
+    for_teacher = models.BooleanField(default=False)
     title = models.CharField(max_length=100)
 
     class Meta:
